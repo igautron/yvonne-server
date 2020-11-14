@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->string('articul')->nullable();
+            $table->string('image')->nullable();
             $table->text('descr')->nullable();
             $table->string('type')->nullable(); // вид продукции
             $table->string('brand')->nullable(); // 

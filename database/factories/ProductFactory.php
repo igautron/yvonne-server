@@ -45,6 +45,7 @@ class ProductFactory extends Factory
 			'price' => $this->faker->randomFloat(2, 1, 999),
 			'articul' => $this->faker->postcode,
 			'descr' => $this->faker->paragraph(5),
+			'image' => '//lorempixel.com/500/600/fashion/?t='.microtime(),
 			'type' => $types_arr[random_int(0, count($types_arr)-1)], // случайный элемент из $types_arr
 			'brand' => $this->faker->state,
 			'seria' => $this->faker->citySuffix,

@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+	use HasFactory;
+
+	// public function __construct(array $attributes = array())
+	// {
+	// 	parent::__construct($attributes);
+	// }
 }
