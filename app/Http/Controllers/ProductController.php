@@ -19,17 +19,66 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        $filter_types = $request->get('types');
-        $filter_types = json_decode($filter_types, true);
-        $product = Product::where('id','>',111110);
-        foreach ($filter_types as $type => $value) {
-            $product->orWhere('type', $type);
+        // dd($request->has('types'));
+        if ($request->has('filter')) {
+            $json = $request->get('filter');
+            $filter_values = json_decode($json, true);
+
+            $product = Product::where('id','>',1);
+
+            if (isset($filter_values['types'])) {
+                $filter_types = $filter_values['types'];
+                $product->where(function($q) use ($filter_types){
+                    foreach ($filter_types as $type => $one) {
+                        $q->orWhere('type', $type);
+                    }
+                });
+            }
+
+            if (isset($filter_values['brands'])) {
+                $filter_brands = $filter_values['brands'];
+                $product->where(function($q) use ($filter_brands){
+                    foreach ($filter_brands as $brand => $one) {
+                        $q->orWhere('brand', $brand);
+                    }
+                });
+            }
+
+            if (isset($filter_values['series'])) {
+                $filter_series = $filter_values['series'];
+                $product->where(function($q) use ($filter_series){
+                    foreach ($filter_series as $seria => $one) {
+                        $q->orWhere('seria', $seria);
+                    }
+                });
+            }
+
+            if (isset($filter_values['appointments'])) {
+                $filter_appointments = $filter_values['appointments'];
+                $product->where(function($q) use ($filter_appointments){
+                    foreach ($filter_appointments as $appointment => $one) {
+                        $q->orWhere($appointment, 1);
+                    }
+                });
+            }
+
+            if (isset($filter_values['gender'])) {
+                $filter_gender = $filter_values['gender'];
+                $product->where('gender', $filter_gender);
+            }
+
+            $products = $product->offset(0)->limit(30)->get();
+            // dd($products);
+            return[
+                'filter_values' => $filter_values,
+                'products' => $products,
+                'count' => count($products),
+            ];
         }
-        $product = $product->get();
         return[
-            'filter_types' => $filter_types,
-            'products' => $product,
-            'count' => count($product),
+            'filter_values' => 'no values',
+            'products' => [],
+            'count' => 0,
         ];
     }
 

@@ -40,6 +40,46 @@ class ProductFactory extends Factory
 			'veil',//'Гель-вуаль',
 		];
 
+		$brands_arr = [
+			'farmavita',
+			'davines',
+			'joico',
+			'profistyle',
+			'felps',
+			'schwarzkopf',
+			'mirella',
+			'altrego'
+		];
+
+		$serias_arr = [
+			"amethyste",
+			"omniplex" ,
+			"argan"    ,
+			"onely"    ,
+			"bioxil"   ,
+			"kliss"    ,
+			"linea"    ,
+			"oi"       ,
+			"hydra"    ,
+			"colori"   ,
+			"colorb"   ,
+			"kpack"    ,
+			"style"    ,
+			"moisture" ,
+			"blond"    ,
+			"defy"     ,
+			"joifull"  ,
+			"shake"    ,
+			"tricogen" ,
+			"beeform"  ,
+			"blondpink",
+			"naturalt" ,
+			"essential",
+			"antiloss" ,
+			"sebum"    ,
+			"osis"     ,
+		];
+
 		return [
 			'title' => $this->faker->city,
 			'price' => $this->faker->randomFloat(2, 1, 999),
@@ -47,11 +87,16 @@ class ProductFactory extends Factory
 			'descr' => $this->faker->paragraph(5),
 			'image' => '//lorempixel.com/500/600/fashion/?t='.microtime(),
 			'type' => $types_arr[random_int(0, count($types_arr)-1)], // случайный элемент из $types_arr
-			'brand' => $this->faker->state,
-			'seria' => $this->faker->citySuffix,
+			'brand' => $brands_arr[random_int(0, count($brands_arr)-1)], // случайный элемент из $brands_arr,
+			'seria' => $serias_arr[random_int(0, count($serias_arr)-1)], // случайный элемент из $serias_arr,
 			'gender' => ['men','women','all'][ random_int(0, 2)],
 			'amount' => random_int(0, 30),
-			'helth' => random_int(0, 1),
+			'dry' => random_int(0, 1),
+			'fatter' => random_int(0, 1),
+			'lamina' => random_int(0, 1),
+			'clarified' => random_int(0, 1),
+			'alltype' => random_int(0, 1),
+			'health' => random_int(0, 1),
 			'salon' => random_int(0, 1),
 			'reconstruction' => random_int(0, 1),
 			'protection' => random_int(0, 1),
