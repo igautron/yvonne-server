@@ -61,8 +61,8 @@ class ProductFactory extends Factory
 			"linea"    ,
 			"oi"       ,
 			"hydra"    ,
-			"colori"   ,
-			"colorb"   ,
+			"colorinfuse"   ,
+			"colorbalance"   ,
 			"kpack"    ,
 			"style"    ,
 			"moisture" ,
@@ -80,6 +80,23 @@ class ProductFactory extends Factory
 			"osis"     ,
 		];
 
+		$amount_arr = [
+			"8g"    ,
+			"10ml"  ,
+			"72ml"  ,
+			"74ml"  ,
+			"100ml" ,
+			"130ml" ,
+			"150ml" ,
+			"180ml" ,
+			"200ml" ,
+			"250ml" ,
+			"280ml" ,
+			"300ml" ,
+			"1000ml",
+			"5l"    ,
+		];
+
 		return [
 			'title' => $this->faker->city,
 			'price' => $this->faker->randomFloat(2, 1, 999),
@@ -90,7 +107,7 @@ class ProductFactory extends Factory
 			'brand' => $brands_arr[random_int(0, count($brands_arr)-1)], // случайный элемент из $brands_arr,
 			'seria' => $serias_arr[random_int(0, count($serias_arr)-1)], // случайный элемент из $serias_arr,
 			'gender' => ['men','women','all'][ random_int(0, 2)],
-			'amount' => random_int(0, 30),
+			'amount' => $amount_arr[random_int(0, count($amount_arr)-1)], // случайный элемент из $amount_arr,,
 			'dry' => random_int(0, 1),
 			'fatter' => random_int(0, 1),
 			'lamina' => random_int(0, 1),

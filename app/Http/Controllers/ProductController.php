@@ -53,6 +53,15 @@ class ProductController extends Controller
                 });
             }
 
+            if (isset($filter_values['amount'])) {
+                $filter_amount = $filter_values['amount'];
+                $product->where(function($q) use ($filter_amount){
+                    foreach ($filter_amount as $amount => $one) {
+                        $q->orWhere('amount', $amount);
+                    }
+                });
+            }
+
             if (isset($filter_values['appointments'])) {
                 $filter_appointments = $filter_values['appointments'];
                 $product->where(function($q) use ($filter_appointments){
@@ -65,6 +74,15 @@ class ProductController extends Controller
             if (isset($filter_values['gender'])) {
                 $filter_gender = $filter_values['gender'];
                 $product->where('gender', $filter_gender);
+            }
+
+            if ($filter_values['price']) {
+                if (isset($filter_values['price']['min'])) {
+                    $product->where('price', '>',(int)$filter_values['price']['min']);
+                }
+                if (isset($filter_values['price']['max'])) {
+                    $product->where('price', '<',(int)$filter_values['price']['max']);
+                }
             }
 
             $products = $product->offset(0)->limit(30)->get();
@@ -84,10 +102,16 @@ class ProductController extends Controller
 
     public function show($id)
     {
-    	// dd($id);
-    	return [
-    		'status' => 'ok',
-    		'data' => Product::find($id),
-    	];
+    	if ($product = Product::find($id)) {
+            return [
+                'status' => 'ok',
+                'data' => $product,
+            ];
+        }else{
+            return [
+                'status' => 'error',
+                'data' => [],
+            ];
+        }
     }
 }
