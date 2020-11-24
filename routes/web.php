@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/products', [ App\Http\Controllers\ProductController::class, 'index' ]);
-Route::get('/products/{product}', [ App\Http\Controllers\ProductController::class, 'show' ]);
-Route::get('/filter', [ App\Http\Controllers\ProductController::class, 'filter' ]);
+Route::get('/api/products', [ App\Http\Controllers\ProductController::class, 'index' ]);
+Route::get('/api/products/{product}', [ App\Http\Controllers\ProductController::class, 'show' ]);
+Route::get('/api/filter', [ App\Http\Controllers\ProductController::class, 'filter' ]);
+
+
+Route::get('/api/login', [ App\Http\Controllers\UserController::class, 'login' ]);
+Route::post('/api/login', [ App\Http\Controllers\UserController::class, 'login' ]);
+Route::post('/api/register', [ App\Http\Controllers\UserController::class, 'register' ]);
