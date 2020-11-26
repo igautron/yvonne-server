@@ -22,6 +22,7 @@ Route::get('/api/products/{product}', [ App\Http\Controllers\ProductController::
 Route::get('/api/filter', [ App\Http\Controllers\ProductController::class, 'filter' ]);
 
 
-Route::get('/api/login', [ App\Http\Controllers\UserController::class, 'login' ]);
-Route::post('/api/login', [ App\Http\Controllers\UserController::class, 'login' ]);
+Route::get('/api/csrf', [ App\Http\Controllers\UserController::class, 'get_csrf' ]);
+Route::post('/api/login', [ App\Http\Controllers\UserController::class, 'login' ])->middleware('api');
 Route::post('/api/register', [ App\Http\Controllers\UserController::class, 'register' ]);
+
