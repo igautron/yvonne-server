@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/login', [ App\Http\Controllers\UserController::class, 'login' ]);
+Route::post('/register', [ App\Http\Controllers\UserController::class, 'register' ]);
 
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
@@ -38,7 +39,7 @@ Route::post('/sanctum/token', function (Request $request) {
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
-
+    
     return [
     	'success' => 'ok',
     	'token' => $user->createToken($request->device_name)->plainTextToken,
