@@ -17,13 +17,14 @@ class AddColumnsToUsers extends Migration
             $table->string('last_name')->nullable()->after('name');
             $table->string('phone')->nullable()->after('last_name');
             $table->string('city')->nullable()->after('phone');
-            $table->string('address', 1000)->nullable()->after('city');
+            $table->string('street')->nullable()->after('city');
+            $table->string('house')->nullable()->after('street');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
+     * php artisan migrate:refresh --seed
      * @return void
      */
     public function down()
@@ -32,7 +33,8 @@ class AddColumnsToUsers extends Migration
             $table->dropColumn('last_name');
             $table->dropColumn('phone');
             $table->dropColumn('city');
-            $table->dropColumn('address');
+            $table->dropColumn('street');
+            $table->dropColumn('house');
         });
     }
 }
