@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $rules = [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required',
             'device_name' => 'required',
         ];
 
@@ -86,6 +86,62 @@ class UserController extends Controller
             'message' => 'Возникли проблемы при регистрации!!!',
         ];
     }
+
+    public function userUpdate(Request $request)
+    {
+        $updated = $request->user()->update($request->all());
+
+        return [
+            'success' => 'ok',
+            'user' => $request->user(),
+            'data' => $request->all(),
+            'updated' => $updated,
+            'message' => '',
+        ];
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = $request->user();
+
+        if ($request->new !== $request->confirm) {
+            return [
+                'success' => 'error',
+                'user' => $request->user(),
+                'data' => $request->all(),
+                'message' => 'Пароли не совпадают',
+            ];
+        }
+
+        $rules = [
+            'new' => 'required|min:6',
+        ];
+        $validator = validator($request->all(), $rules);
+        if($validator->fails()) return [
+            'success' => 'error',
+            'message' => 'Неверно введены данные',
+            'errors' => $validator->errors()
+        ];
+
+        if (Hash::check($request->old, $user->password)) {
+            $user->password = Hash::make($request->new);
+            $user->save();
+            return [
+                'success' => $user->save() ? 'ok' : 'error',
+                'user' => $request->user(),
+                'data' => $request->all(),
+                'message' => 'ok',
+            ];
+        }else{
+            return [
+                'success' => 'error',
+                'user' => $request->user(),
+                'data' => $request->all(),
+                'message' => 'Неверный старый пароль',
+            ];
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

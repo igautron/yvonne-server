@@ -17,10 +17,15 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->post('/userUpdate', [ App\Http\Controllers\UserController::class, 'userUpdate' ]);
+Route::middleware('auth:sanctum')->post('/changePassword', [ App\Http\Controllers\UserController::class, 'changePassword' ]);
+
+Route::post('/addToCart', [ App\Http\Controllers\CartController::class, 'addToCart' ]);
+Route::post('/removeCartItem', [ App\Http\Controllers\CartController::class, 'removeCartItem' ]);
 
 Route::post('/login', [ App\Http\Controllers\UserController::class, 'login' ]);
 Route::post('/register', [ App\Http\Controllers\UserController::class, 'register' ]);
