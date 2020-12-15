@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
     	// Product::factory(10)->create();
-
+        $products = DB::table('products')->paginate(6);
     	return [
     		'status' => 'ok',
-    		'products' => Product::all(),
+    		'products' => $products,
     	];
     }
 
